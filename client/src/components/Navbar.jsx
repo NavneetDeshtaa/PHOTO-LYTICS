@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between py-4">
       <Link to="/">
-        <p className="text-4xl text-black  ">✈️ PHOTO-LYTICS</p>
+        <p className="text-4xl text-black  "> 📷 PHOTO-LYTICS </p>
       </Link>
 
       <div>
