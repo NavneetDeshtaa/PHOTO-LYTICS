@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
+import Spinner from '../components/Spinner'
 
 const Login = () => {
 
@@ -11,16 +12,16 @@ const Login = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const { backendUrl, setShowLogin, setToken, setUser } = useContext(AppContext)
 
     const onSubmitHandler = async (e) => {
         e.preventDefault()
+        setLoading(true)
 
         try {
-
             if (state === 'Login') {
-
                 const { data } = await axios.post(backendUrl + '/api/user/login', { email, password })
 
                 if (data.success) {
@@ -33,7 +34,6 @@ const Login = () => {
                 }
 
             } else {
-
                 const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
 
                 if (data.success) {
@@ -44,13 +44,11 @@ const Login = () => {
                 } else {
                     toast.error(data.message)
                 }
-
             }
-
-
-
         } catch (error) {
             toast.error(error.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -91,7 +89,12 @@ const Login = () => {
 
                 <p className='text-sm text-blue-600 my-4 cursor-pointer'>Forgot password?</p>
 
-                <button className='bg-blue-600 w-full text-white py-2 rounded-full'>{state === 'Login' ? 'login' : 'create account'}</button>
+                <button 
+                    className='bg-blue-600 w-full text-white py-2 rounded-full flex items-center justify-center'
+                    disabled={loading}
+                >
+                    {loading ? <Spinner /> : state === 'Login' ? 'login' : 'create account'}
+                </button>
 
                 {state === "Login"
                     ? <p className='mt-5 text-center'>Don't have an account? <span onClick={() => setState('Sign Up')} className='text-blue-600 cursor-pointer'>Sign up</span></p>
