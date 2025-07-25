@@ -9,16 +9,12 @@ const authUser = async (req, res, next) => {
     }
 
     try {
-        // Verify the token using the secret key
         const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Check if the decoded token contains a user ID
         if (tokenDecode.id) {
-
-            // Attach user ID to the request body
-            req.body.userId = tokenDecode.id; 
-            
-        } else {
+            req.body.userId = tokenDecode.id;   
+        } 
+        else {
             return res.json({ success: false, message: 'Not Authorized. Login Again' });
         }
 
