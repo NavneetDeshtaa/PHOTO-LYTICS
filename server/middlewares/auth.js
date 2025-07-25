@@ -31,5 +31,4 @@ const authUser = async (req, res, next) => {
     }
 };
 
-// Export the middleware
 export default authUser; 
