@@ -1,10 +1,8 @@
 import axios from 'axios'
-import fs from 'fs'
+// import fs from 'fs'
 import FormData from 'form-data'
 import userModel from '../models/userModel.js'
 
-// Controller function to generate image from prompt
-// http://localhost:4000/api/image/generate-image
 export const generateImage = async (req, res) => {
 
   try {
@@ -43,7 +41,7 @@ export const generateImage = async (req, res) => {
     await userModel.findByIdAndUpdate(user._id, { creditBalance: user.creditBalance - 1 })
 
     // Sending Response
-    res.json({ success: true, message: "Background Removed", resultImage, creditBalance: user.creditBalance - 1 })
+    res.json({ success: true, message: "Image Generated Successfully", resultImage, creditBalance: user.creditBalance - 1 })
 
   } catch (error) {
     console.log(error.message)

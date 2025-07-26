@@ -175,7 +175,7 @@ const verifyRazorpay = async (req, res) => {
         if (orderInfo.status === 'paid') {
             const transactionData = await transactionModel.findById(orderInfo.receipt)
             if (transactionData.payment) {
-                return res.json({ success: false, message: 'Payment Failed' })
+                return res.json({ success: false, message: 'Payment already completed' })
             }
 
             // Adding Credits in user data
