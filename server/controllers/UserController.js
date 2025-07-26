@@ -142,7 +142,7 @@ const paymentRazorpay = async (req, res) => {
 
         // Creating options to create razorpay Order
         const options = {
-            amount: amount * 100,
+            amount: amount * 100, // amount converted into paise from rupees.
             currency: process.env.CURRENCY,
             receipt: newTransaction._id,
         }
